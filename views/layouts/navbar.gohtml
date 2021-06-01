@@ -1,0 +1,167 @@
+{{define "navbar"}}
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">lottery</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex" action="/galleries" method="POST">
+        <select class="form-select" name="permutationKey" id="permutationKey">
+          <option value="1">001 [0 1 2 3 4 5 6 7 8 9]</option>
+          <option value="2">002 [0 1 2 3 5 4 6 7 8 9]</option>
+          <option value="3">003 [0 1 2 3 6 4 5 7 8 9]</option>
+          <option value="4">004 [0 1 2 3 7 4 5 6 8 9]</option>
+          <option value="5">005 [0 1 2 3 8 4 5 6 7 9]</option>
+          <option value="6">006 [0 1 2 3 9 4 5 6 7 8]</option>
+          <option value="7">007 [0 1 2 4 5 3 6 7 8 9]</option>
+          <option value="8">008 [0 1 2 4 6 3 5 7 8 9]</option>
+          <option value="9">009 [0 1 2 4 7 3 5 6 8 9]</option>
+          <option value="10">010 [0 1 2 4 8 3 5 6 7 9]</option>
+          <option value="11">011 [0 1 2 4 9 3 5 6 7 8]</option>
+          <option value="12">012 [0 1 2 5 6 3 4 7 8 9]</option>
+          <option value="13">013 [0 1 2 5 7 3 4 6 8 9]</option>
+          <option value="14">014 [0 1 2 5 8 3 4 6 7 9]</option>
+          <option value="15">015 [0 1 2 5 9 3 4 6 7 8]</option>
+          <option value="16">016 [0 1 2 6 7 3 4 5 8 9]</option>
+          <option value="17">017 [0 1 2 6 8 3 4 5 7 9]</option>
+          <option value="18">018 [0 1 2 6 9 3 4 5 7 8]</option>
+          <option value="19">019 [0 1 2 7 8 3 4 5 6 9]</option>
+          <option value="20">020 [0 1 2 7 9 3 4 5 6 8]</option>
+          <option value="21">021 [0 1 2 8 9 3 4 5 6 7]</option>
+          <option value="22">022 [0 1 3 4 5 2 6 7 8 9]</option>
+          <option value="23">023 [0 1 3 4 6 2 5 7 8 9]</option>
+          <option value="24">024 [0 1 3 4 7 2 5 6 8 9]</option>
+          <option value="25">025 [0 1 3 4 8 2 5 6 7 9]</option>
+          <option value="26">026 [0 1 3 4 9 2 5 6 7 8]</option>
+          <option value="27">027 [0 1 3 5 6 2 4 7 8 9]</option>
+          <option value="28">028 [0 1 3 5 7 2 4 6 8 9]</option>
+          <option value="29">029 [0 1 3 5 8 2 4 6 7 9]</option>
+          <option value="30">030 [0 1 3 5 9 2 4 6 7 8]</option>
+          <option value="31">031 [0 1 3 6 7 2 4 5 8 9]</option>
+          <option value="32">032 [0 1 3 6 8 2 4 5 7 9]</option>
+          <option value="33">033 [0 1 3 6 9 2 4 5 7 8]</option>
+          <option value="34">034 [0 1 3 7 8 2 4 5 6 9]</option>
+          <option value="35">035 [0 1 3 7 9 2 4 5 6 8]</option>
+          <option value="36">036 [0 1 3 8 9 2 4 5 6 7]</option>
+          <option value="37">037 [0 1 4 5 6 2 3 7 8 9]</option>
+          <option value="38">038 [0 1 4 5 7 2 3 6 8 9]</option>
+          <option value="39">039 [0 1 4 5 8 2 3 6 7 9]</option>
+          <option value="40">040 [0 1 4 5 9 2 3 6 7 8]</option>
+          <option value="41">041 [0 1 4 6 7 2 3 5 8 9]</option>
+          <option value="42">042 [0 1 4 6 8 2 3 5 7 9]</option>
+          <option value="43">043 [0 1 4 6 9 2 3 5 7 8]</option>
+          <option value="44">044 [0 1 4 7 8 2 3 5 6 9]</option>
+          <option value="45">045 [0 1 4 7 9 2 3 5 6 8]</option>
+          <option value="46">046 [0 1 4 8 9 2 3 5 6 7]</option>
+          <option value="47">047 [0 1 5 6 7 2 3 4 8 9]</option>
+          <option value="48">048 [0 1 5 6 8 2 3 4 7 9]</option>
+          <option value="49">049 [0 1 5 6 9 2 3 4 7 8]</option>
+          <option value="50">050 [0 1 5 7 8 2 3 4 6 9]</option>
+          <option value="51">051 [0 1 5 7 9 2 3 4 6 8]</option>
+          <option value="52">052 [0 1 5 8 9 2 3 4 6 7]</option>
+          <option value="53">053 [0 1 6 7 8 2 3 4 5 9]</option>
+          <option value="54">054 [0 1 6 7 9 2 3 4 5 8]</option>
+          <option value="55">055 [0 1 6 8 9 2 3 4 5 7]</option>
+          <option value="56">056 [0 1 7 8 9 2 3 4 5 6]</option>
+          <option value="57">057 [0 2 3 4 5 1 6 7 8 9]</option>
+          <option value="58">058 [0 2 3 4 6 1 5 7 8 9]</option>
+          <option value="59">059 [0 2 3 4 7 1 5 6 8 9]</option>
+          <option value="60">060 [0 2 3 4 8 1 5 6 7 9]</option>
+          <option value="61">061 [0 2 3 4 9 1 5 6 7 8]</option>
+          <option value="62">062 [0 2 3 5 6 1 4 7 8 9]</option>
+          <option value="63">063 [0 2 3 5 7 1 4 6 8 9]</option>
+          <option value="64">064 [0 2 3 5 8 1 4 6 7 9]</option>
+          <option value="65">065 [0 2 3 5 9 1 4 6 7 8]</option>
+          <option value="66">066 [0 2 3 6 7 1 4 5 8 9]</option>
+          <option value="67">067 [0 2 3 6 8 1 4 5 7 9]</option>
+          <option value="68">068 [0 2 3 6 9 1 4 5 7 8]</option>
+          <option value="69">069 [0 2 3 7 8 1 4 5 6 9]</option>
+          <option value="70">070 [0 2 3 7 9 1 4 5 6 8]</option>
+          <option value="71">071 [0 2 3 8 9 1 4 5 6 7]</option>
+          <option value="72">072 [0 2 4 5 6 1 3 7 8 9]</option>
+          <option value="73">073 [0 2 4 5 7 1 3 6 8 9]</option>
+          <option value="74">074 [0 2 4 5 8 1 3 6 7 9]</option>
+          <option value="75">075 [0 2 4 5 9 1 3 6 7 8]</option>
+          <option value="76">076 [0 2 4 6 7 1 3 5 8 9]</option>
+          <option value="77">077 [0 2 4 6 8 1 3 5 7 9]</option>
+          <option value="78">078 [0 2 4 6 9 1 3 5 7 8]</option>
+          <option value="79">079 [0 2 4 7 8 1 3 5 6 9]</option>
+          <option value="80">080 [0 2 4 7 9 1 3 5 6 8]</option>
+          <option value="81">081 [0 2 4 8 9 1 3 5 6 7]</option>
+          <option value="82">082 [0 2 5 6 7 1 3 4 8 9]</option>
+          <option value="83">083 [0 2 5 6 8 1 3 4 7 9]</option>
+          <option value="84">084 [0 2 5 6 9 1 3 4 7 8]</option>
+          <option value="85">085 [0 2 5 7 8 1 3 4 6 9]</option>
+          <option value="86">086 [0 2 5 7 9 1 3 4 6 8]</option>
+          <option value="87">087 [0 2 5 8 9 1 3 4 6 7]</option>
+          <option value="88">088 [0 2 6 7 8 1 3 4 5 9]</option>
+          <option value="89">089 [0 2 6 7 9 1 3 4 5 8]</option>
+          <option value="90">090 [0 2 6 8 9 1 3 4 5 7]</option>
+          <option value="91">091 [0 2 7 8 9 1 3 4 5 6]</option>
+          <option value="92">092 [0 3 4 5 6 1 2 7 8 9]</option>
+          <option value="93">093 [0 3 4 5 7 1 2 6 8 9]</option>
+          <option value="94">094 [0 3 4 5 8 1 2 6 7 9]</option>
+          <option value="95">095 [0 3 4 5 9 1 2 6 7 8]</option>
+          <option value="96">096 [0 3 4 6 7 1 2 5 8 9]</option>
+          <option value="97">097 [0 3 4 6 8 1 2 5 7 9]</option>
+          <option value="98">098 [0 3 4 6 9 1 2 5 7 8]</option>
+          <option value="99">099 [0 3 4 7 8 1 2 5 6 9]</option>
+          <option value="100">100 [0 3 4 7 9 1 2 5 6 8]</option>
+          <option value="101">101 [0 3 4 8 9 1 2 5 6 7]</option>
+          <option value="102">102 [0 3 5 6 7 1 2 4 8 9]</option>
+          <option value="103">103 [0 3 5 6 8 1 2 4 7 9]</option>
+          <option value="104">104 [0 3 5 6 9 1 2 4 7 8]</option>
+          <option value="105">105 [0 3 5 7 8 1 2 4 6 9]</option>
+          <option value="106">106 [0 3 5 7 9 1 2 4 6 8]</option>
+          <option value="107">107 [0 3 5 8 9 1 2 4 6 7]</option>
+          <option value="108">108 [0 3 6 7 8 1 2 4 5 9]</option>
+          <option value="109">109 [0 3 6 7 9 1 2 4 5 8]</option>
+          <option value="110">110 [0 3 6 8 9 1 2 4 5 7]</option>
+          <option value="111">111 [0 3 7 8 9 1 2 4 5 6]</option>
+          <option value="112">112 [0 4 5 6 7 1 2 3 8 9]</option>
+          <option value="113">113 [0 4 5 6 8 1 2 3 7 9]</option>
+          <option value="114">114 [0 4 5 6 9 1 2 3 7 8]</option>
+          <option value="115">115 [0 4 5 7 8 1 2 3 6 9]</option>
+          <option value="116">116 [0 4 5 7 9 1 2 3 6 8]</option>
+          <option value="117">117 [0 4 5 8 9 1 2 3 6 7]</option>
+          <option value="118">118 [0 4 6 7 8 1 2 3 5 9]</option>
+          <option value="119">119 [0 4 6 7 9 1 2 3 5 8]</option>
+          <option value="120">120 [0 4 6 8 9 1 2 3 5 7]</option>
+          <option value="121">121 [0 4 7 8 9 1 2 3 5 6]</option>
+          <option value="122">122 [0 5 6 7 8 1 2 3 4 9]</option>
+          <option value="123">123 [0 5 6 7 9 1 2 3 4 8]</option>
+          <option value="124">124 [0 5 6 8 9 1 2 3 4 7]</option>
+          <option value="125">125 [0 5 7 8 9 1 2 3 4 6]</option>
+          <option value="126">126 [0 6 7 8 9 1 2 3 4 5]</option>
+        </select>
+        <select class="form-select" name="lotteryType" id="lotteryType">
+          <option value="1">排三</option>
+          <option value="2">3D</option>
+        </select>
+        <select class="form-select" name="graphType" id="graphType">
+          <option value="1">1. 原始数据</option>
+          <option value="2">2. 组三和组六</option>
+          <option value="3">3. 组三和组六压缩1</option>
+          <option value="4">4. 组三和组六压缩2</option>
+          <option value="5">5. 组六</option>
+          <option value="6">6. 组六压缩1</option>
+          <option value="7">7. 组六压缩2</option>
+        </select>
+        <button class="btn btn-outline-success" type="submit">Searcaah</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<script type="text/javascript">
+  var point = {{.Form}};
+  if (point != null) {
+    $("#permutationKey").val(point.PermutationKey);
+    $("#lotteryType").val(point.LotteryType);
+    $("#graphType").val(point.GraphType);
+  }
+</script>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+{{end}}

@@ -1,0 +1,31 @@
+{{define "yield"}}
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover" id="table_id">
+      <thead> 
+        <tr>
+          <th>日期</th>
+          <th>期号</th>
+          <th>下标</th>
+          <th>中奖数字1</th>
+          <th>中奖数字2</th>
+          <th>中奖数字3</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+        <tr>
+          <th scope="row">{{.Date}}</th>
+          <td>{{.No}}</td>
+          <td>{{.Index}}</td>
+          <td>{{.Num1}}</td>
+          <td>{{.Num2}}</td>
+          <td>{{.Num3}}</td>
+          
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+{{end}}

@@ -1,0 +1,38 @@
+{{define "yield"}}
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover" id="table_id">
+      <tbody>
+        {{range .}}
+        <tr>
+          {{range .}}<td class="hide">{{.}}</td>{{end}}
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#table_id td.hide').each(function(){
+    if ($(this).text() == '0') {
+      $(this).text("");
+      $(this).css('background-color','#95A5A6');
+    }
+    if ($(this).text() >= '20' && $(this).text() <= '29') {
+      $(this).css('background-color','#CCCCFF');
+    }
+    if ($(this).text() >= '30' && $(this).text() <= '39') {
+      $(this).css('background-color','#9FE2BF');
+    }
+    if ($(this).text() >= '40' && $(this).text() <= '89') {
+      $(this).css('background-color','#FFBF00');
+    }
+    if ($(this).text() >= '90' {
+      $(this).css('background-color','#DE3163');
+    }
+  });
+});
+</script>
+{{end}}

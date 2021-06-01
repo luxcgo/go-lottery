@@ -1,0 +1,17 @@
+{{define "yield"}}
+  <div class="card col-sm-4 mx-auto mt-4">
+    <h4 class="card-header">Create a gallery</h4>
+    <div class="card-body">
+        {{template "galleryForm"}}
+  </div>
+{{end}}
+
+{{define "galleryForm"}}
+<form action="/galleries" method="POST">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input name="title" type="text" class="form-control" id="title" placeholder="What is the title of the gallery?">
+  </div>
+  <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{{end}}

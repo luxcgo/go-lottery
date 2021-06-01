@@ -1,0 +1,72 @@
+{{define "yield"}}
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover" id="table_id">
+      <thead> 
+        <tr>
+          <th>日期</th>
+          <th>期号</th>
+          <th>下标</th>
+          <th>中奖数字1</th>
+          <th>中奖数字2</th>
+          <th>中奖数字3</th>
+          <th>num0</th>
+          <th>num1</th>
+          <th>num2</th>
+          <th>num3</th>
+          <th>num4</th>
+          <th>num5</th>
+          <th>num6</th>
+          <th>num7</th>
+          <th>num8</th>
+          <th>num9</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+        <tr>
+          <th scope="row">{{.Date}}</th>
+          <td class="y_n">{{.No}}</td>
+          <td>{{.Index}}</td>
+          <td>{{.Num1}}</td>
+          <td>{{.Num2}}</td>
+          <td>{{.Num3}}</td>
+          <td class="hide">{{.Arr0}}</td>
+          <td class="hide">{{.Arr1}}</td>
+          <td class="hide">{{.Arr2}}</td>
+          <td class="hide">{{.Arr3}}</td>
+          <td class="hide">{{.Arr4}}</td>
+          <td class="hide">{{.Arr5}}</td>
+          <td class="hide">{{.Arr6}}</td>
+          <td class="hide">{{.Arr7}}</td>
+          <td class="hide">{{.Arr8}}</td>
+          <td class="hide">{{.Arr9}}</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#table_id td.hide').each(function(){
+    if ($(this).text() == '0') {
+      $(this).text("");
+    }
+    if ($(this).text() >= '20' && $(this).text() <= '29') {
+      $(this).css('background-color','#CCCCFF');
+    }
+    if ($(this).text() >= '30' && $(this).text() <= '39') {
+      $(this).css('background-color','#9FE2BF');
+    }
+    if ($(this).text() >= '40' && $(this).text() <= '89') {
+      $(this).css('background-color','#FFBF00');
+    }
+    if ($(this).text() >= '90' {
+      $(this).css('background-color','#DE3163');
+    }
+  });
+});
+</script>
+{{end}}

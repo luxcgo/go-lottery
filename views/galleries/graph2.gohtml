@@ -1,0 +1,63 @@
+{{define "yield"}}
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover" id="table_id">
+      <thead> 
+        <tr>
+          <th>日期</th>
+          <th>期号</th>
+          <th>下标</th>
+          <th>中奖数字1</th>
+          <th>中奖数字2</th>
+          <th>中奖数字3</th>
+          <th>遗漏值</th>
+          <th>前五个组三</th>
+          <th>前五个组六</th>
+          <th>后五个组三</th>
+          <th>后五个组六</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .}}
+        <tr>
+          <th scope="row">{{.Date}}</th>
+          <td>{{.No}}</td>
+          <td>{{.Index}}</td>
+          <td>{{.Num1}}</td>
+          <td>{{.Num2}}</td>
+          <td>{{.Num3}}</td>
+          <td>{{.Omission}}</td>
+          <td class="hide">{{.Diff1}}</td>
+          <td class="hide">{{.Diff2}}</td>
+          <td class="hide">{{.Diff3}}</td>
+          <td class="hide">{{.Diff4}}</td>
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#table_id td.hide').each(function(){
+    if ($(this).text() == '0') {
+      $(this).text("");
+    }
+    if ($(this).text() >= '20' && $(this).text() <= '29') {
+      $(this).css('background-color','#CCCCFF');
+    }
+    if ($(this).text() >= '30' && $(this).text() <= '39') {
+      $(this).css('background-color','#9FE2BF');
+    }
+    if ($(this).text() >= '40' && $(this).text() <= '89') {
+      $(this).css('background-color','#FFBF00');
+    }
+    if ($(this).text() >= '90' {
+      $(this).css('background-color','#DE3163');
+    }
+  });
+});
+
+</script>
+{{end}}
