@@ -400,7 +400,13 @@ func (gg *galleryGorm) GetGraph3(lotteryType int, permutationKey int) (Graph3, e
 		}
 	}
 	var res [][]int
-	for _, arr := range temp {
+	for i, arr := range temp {
+		var t = make([]int, RowCount)
+		for i := range t {
+			t[i] = -1
+		}
+		t[0] = i + 1
+		res = append(res, t)
 		for i := 0; i < len(arr); i += RowCount {
 			ends := i + RowCount
 			if ends > len(arr) {
@@ -408,8 +414,6 @@ func (gg *galleryGorm) GetGraph3(lotteryType int, permutationKey int) (Graph3, e
 			}
 			res = append(res, arr[i:ends])
 		}
-		var t = make([]int, RowCount)
-		res = append(res, t)
 	}
 	return Graph3{res}, nil
 }
@@ -432,7 +436,13 @@ func (gg *galleryGorm) GetGraph4(lotteryType int, permutationKey int) (Graph3, e
 		}
 	}
 	var res [][]int
-	for _, arr := range temp {
+	for i, arr := range temp {
+		var t = make([]int, RowCount)
+		for i := range t {
+			t[i] = -1
+		}
+		t[0] = i + 1
+		res = append(res, t)
 		for i := 0; i < len(arr); i += RowCount {
 			ends := i + RowCount
 			if ends > len(arr) {
@@ -440,8 +450,6 @@ func (gg *galleryGorm) GetGraph4(lotteryType int, permutationKey int) (Graph3, e
 			}
 			res = append(res, arr[i:ends])
 		}
-		var t = make([]int, RowCount)
-		res = append(res, t)
 	}
 	return Graph3{res}, nil
 }
@@ -549,7 +557,13 @@ func (gg *galleryGorm) GetGraph6(lotteryType int, permutationKey int) (Graph3, e
 		}
 	}
 	var res [][]int
-	for _, arr := range temp {
+	for i, arr := range temp {
+		var t = make([]int, RowCount)
+		for i := range t {
+			t[i] = -1
+		}
+		t[0] = permutation[permutationKey][i]
+		res = append(res, t)
 		for i := 0; i < len(arr); i += RowCount {
 			ends := i + RowCount
 			if ends > len(arr) {
@@ -557,8 +571,6 @@ func (gg *galleryGorm) GetGraph6(lotteryType int, permutationKey int) (Graph3, e
 			}
 			res = append(res, arr[i:ends])
 		}
-		var t = make([]int, RowCount)
-		res = append(res, t)
 	}
 	return Graph3{res}, nil
 }
@@ -599,7 +611,13 @@ func (gg *galleryGorm) GetGraph7(lotteryType int, permutationKey int) (Graph3, e
 		}
 	}
 	var res [][]int
-	for _, arr := range temp {
+	for i, arr := range temp {
+		var t = make([]int, RowCount)
+		for i := range t {
+			t[i] = -1
+		}
+		t[0] = permutation[permutationKey][i]
+		res = append(res, t)
 		for i := 0; i < len(arr); i += RowCount {
 			ends := i + RowCount
 			if ends > len(arr) {
@@ -607,8 +625,6 @@ func (gg *galleryGorm) GetGraph7(lotteryType int, permutationKey int) (Graph3, e
 			}
 			res = append(res, arr[i:ends])
 		}
-		var t = make([]int, RowCount)
-		res = append(res, t)
 	}
 	return Graph3{res}, nil
 }
