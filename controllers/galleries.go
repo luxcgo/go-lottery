@@ -59,9 +59,6 @@ type QueryForm struct {
 func NewGalleries(gs models.GalleryService,
 	r *mux.Router) *Galleries {
 	return &Galleries{
-		New:        views.NewView("bootstrap", "galleries/new"),
-		ShowView:   views.NewView("bootstrap", "galleries/show"),
-		EditView:   views.NewView("bootstrap", "galleries/edit"),
 		IndexView:  views.NewView("bootstrap", "galleries/index"),
 		Graph2View: views.NewView("bootstrap", "galleries/graph2"),
 		Graph3View: views.NewView("bootstrap", "galleries/graph3"),
