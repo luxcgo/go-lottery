@@ -1,6 +1,8 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 const (
 
@@ -152,7 +154,7 @@ var _ GalleryDB = &galleryGorm{}
 type Gallery struct {
 	gorm.Model
 	Date        string
-	No          int `gorm:"primaryKey"`
+	No          int `gorm:"uniqueIndex"`
 	Num1        int
 	Num2        int
 	Num3        int
@@ -293,11 +295,7 @@ func (gg *galleryGorm) ByID(id uint) (*Gallery, error) {
 
 func (gg *galleryGorm) GetLast(lotteryType int) (*Gallery, error) {
 	var gallery Gallery
-	db := gg.db.Where("lottery_type = ?", lotteryType).Last(&gallery)
-	_ = first(db, &gallery)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	gg.db.Order("no desc").Where("lottery_type = ?", lotteryType).Find(&gallery)
 	return &gallery, nil
 }
 

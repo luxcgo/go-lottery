@@ -7,6 +7,7 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/luxcgo/go-gallery/controllers"
 	"github.com/luxcgo/go-gallery/models"
+	"github.com/robfig/cron/v3"
 )
 
 const (
@@ -48,7 +49,11 @@ func main() {
 	r := mux.NewRouter()
 	staticC := controllers.NewStatic()
 	galleriesC := controllers.NewGalleries(services.Gallery, r)
-	// galleriesC.Crawl()
+	galleriesC.Run()
+	c := cron.New()
+	c.AddJob("0 22 * * *", galleriesC)
+	c.AddJob("0 12 * * *", galleriesC)
+	c.Start()
 
 	r.Handle("/", staticC.Home).Methods("GET")
 	r.Handle("/contact", staticC.Contact).Methods("GET")

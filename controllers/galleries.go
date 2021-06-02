@@ -68,7 +68,7 @@ func NewGalleries(gs models.GalleryService,
 	}
 }
 
-func (g *Galleries) Crawl() {
+func (g *Galleries) Run() {
 	g.UpdatePs()
 	g.UpdateSd()
 }
@@ -153,8 +153,8 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 	}
 	vd.Form = form
 
-	fmt.Printf("%+v", form)
-	fmt.Println(form.PermutationKey)
+	// fmt.Printf("%+v", form)
+	// fmt.Println(form.PermutationKey)
 	switch form.GraphType {
 	case 1:
 		galleries, err := g.gs.GetAllPs(form.LotteryType)
