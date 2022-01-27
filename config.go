@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 type PostgresConfig struct {
@@ -63,7 +64,8 @@ func DefaultConfig() Config {
 }
 
 func LoadConfig() Config {
-	f, err := os.Open(".config")
+	dir := filepath.Join(confDir, ".config")
+	f, err := os.Open(dir)
 	if err != nil {
 		fmt.Println("Using the default config...")
 		return DefaultConfig()

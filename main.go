@@ -1,8 +1,11 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/mux"
 	"github.com/luxcgo/go-gallery/controllers"
@@ -17,6 +20,19 @@ const (
 	password = "secret"
 	dbname   = "luxcgo_gallery"
 )
+
+var (
+	confDir string
+)
+
+func init() {
+	path, err := os.Getwd()
+	if err != nil {
+		log.Println(err)
+	}
+	flag.StringVar(&confDir, "conf_dir", path, "conf文件存放路径")
+	flag.Parse()
+}
 
 func notFound(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
