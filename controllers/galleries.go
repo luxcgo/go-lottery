@@ -73,7 +73,7 @@ func (g *Galleries) Run() {
 	g.UpdateSd()
 }
 
-func (g *Galleries) UpdatePs() {
+func (g *Galleries) UpdatePsV1() {
 	lastGallery, err := g.gs.GetLast(1)
 	if err != nil {
 		return

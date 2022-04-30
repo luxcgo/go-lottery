@@ -6,6 +6,7 @@ require (
 	github.com/gogf/gf v1.16.1
 	github.com/gorilla/mux v1.8.0
 	github.com/gorilla/schema v1.2.0
+	github.com/json-iterator/go v1.1.12
 	github.com/robfig/cron/v3 v3.0.0
 	gorm.io/driver/postgres v1.0.8
 	gorm.io/gorm v1.21.4
@@ -29,6 +30,8 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.2 // indirect
 	github.com/mattn/go-runewidth v0.0.10 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
+	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/rivo/uniseg v0.1.0 // indirect
 	go.opentelemetry.io/otel v0.19.0 // indirect
