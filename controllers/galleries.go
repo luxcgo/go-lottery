@@ -42,6 +42,7 @@ type Galleries struct {
 	Graph2View *views.View
 	Graph3View *views.View
 	Graph5View *views.View
+	Graph8View *views.View
 	gs         models.GalleryService
 	r          *mux.Router
 }
@@ -54,6 +55,7 @@ type QueryForm struct {
 	PermutationKey int `schema:"permutationKey"`
 	LotteryType    int `schema:"lotteryType"`
 	GraphType      int `schema:"graphType"`
+	FourNumber     int `schema:"fourNumber"`
 }
 
 func NewGalleries(gs models.GalleryService,
@@ -63,6 +65,7 @@ func NewGalleries(gs models.GalleryService,
 		Graph2View: views.NewView("bootstrap", "galleries/graph2"),
 		Graph3View: views.NewView("bootstrap", "galleries/graph3"),
 		Graph5View: views.NewView("bootstrap", "galleries/graph5"),
+		Graph8View: views.NewView("bootstrap", "galleries/graph8"),
 		gs:         gs,
 		r:          r,
 	}
@@ -195,6 +198,11 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 		var vd views.Data
 		vd.Yield = res.Arr
 		g.Graph3View.Render(w, r, vd)
+	case 8:
+		res, _ := g.gs.GetGraph8(form.LotteryType, form.FourNumber)
+		var vd views.Data
+		vd.Yield = res.Arr
+		g.Graph8View.Render(w, r, vd)
 	}
 
 	g.IndexView.Render(w, r, vd)

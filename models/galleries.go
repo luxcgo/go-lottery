@@ -1,6 +1,10 @@
 package models
 
 import (
+	"log"
+	"sort"
+	"strconv"
+
 	"gorm.io/gorm"
 )
 
@@ -188,6 +192,10 @@ type Graph3 struct {
 	Arr [][]int
 }
 
+type Graph8 struct {
+	Arr [][]string
+}
+
 type Graph5 struct {
 	Date  string
 	No    int
@@ -230,6 +238,7 @@ type GalleryDB interface {
 	GetGraph5(lotteryType int, permutationKey int) ([]Graph5, error)
 	GetGraph6(lotteryType int, permutationKey int) (Graph3, error)
 	GetGraph7(lotteryType int, permutationKey int) (Graph3, error)
+	GetGraph8(lotteryType int, fourNumber int) (Graph8, error)
 }
 
 type galleryGorm struct {
@@ -627,6 +636,160 @@ func (gg *galleryGorm) GetGraph7(lotteryType int, permutationKey int) (Graph3, e
 	return Graph3{res}, nil
 }
 
+const (
+	offset = 22000
+)
+
+func (gg *galleryGorm) GetGraph8(lotteryType int, fourNumber int) (Graph8, error) {
+	log.Println("fournm", fourNumber)
+	var res [][]string
+	srcData, _ := gg.GetAllPs(lotteryType)
+	var dateArr, noArr, numArr []string
+	var config [][]string
+	// Date  string
+	// No    int
+	// Index int
+	// Num1  int
+	// Num2  int
+	// Num3  int
+	for _, v := range srcData {
+		if v.No < offset {
+			continue
+		}
+		dateArr = append(dateArr, v.Date)
+		noArr = append(noArr, strconv.Itoa(v.No))
+		numArr = append(numArr, strconv.Itoa(v.Num1)+strconv.Itoa(v.Num2)+strconv.Itoa(v.Num3))
+		tmp := []int{v.Num1, v.Num2, v.Num3}
+		sort.Ints(tmp)
+		config = append(config, []string{
+			strconv.Itoa(tmp[0]) + strconv.Itoa(tmp[1]),
+			strconv.Itoa(tmp[0]) + strconv.Itoa(tmp[2]),
+			strconv.Itoa(tmp[1]) + strconv.Itoa(tmp[2]),
+		})
+	}
+
+	emptyFields := []string{"", "", "", "", ""}
+
+	res = append(res, append(emptyFields, dateArr...))
+	res = append(res, append(emptyFields, noArr...))
+	res = append(res, append(emptyFields, numArr...))
+
+	headers := gg.getGraph8Headers(fourNumber)
+	for _, v := range headers {
+		res = append(res, gg.getGraph8Content(config, v))
+	}
+
+	res = transpose(res)
+
+	return Graph8{res}, nil
+}
+
+func (gg *galleryGorm) getGraph8Headers(a int) [][]string {
+	// log.Println(a)
+	// println(a / 1000 % 10)
+	n1 := a / 1000 % 10
+	n2 := a / 100 % 10
+	n3 := a / 10 % 10
+	n4 := a / 1 % 10
+	// println(n1, n2, n3, n4)
+
+	pair1 := strconv.Itoa(n1) + strconv.Itoa(n2)
+	pair2 := strconv.Itoa(n3) + strconv.Itoa(n4)
+
+	// log.Println(pair1, pair2)
+
+	var tmpArr []int
+	for i := n3 + 1; i <= 9; i++ {
+		if i != n4 {
+			tmpArr = append(tmpArr, i)
+		}
+	}
+	// log.Println(tmpArr)
+
+	var pair3 []string
+	for i := 0; i < len(tmpArr)-1; i++ {
+		for j := i + 1; j < len(tmpArr); j++ {
+			pair3 = append(pair3, strconv.Itoa(tmpArr[i])+strconv.Itoa(tmpArr[j]))
+		}
+	}
+
+	// log.Println(pair3)
+
+	var pairs [][]string
+
+	for _, v := range pair3 {
+		pair, _ := strconv.Atoi(v)
+		n5 := pair / 10 % 10
+		n6 := pair % 10
+
+		tmpArr = nil
+		for i := 0; i <= 9; i++ {
+			switch i {
+			case n1,
+				n2,
+				n3,
+				n4,
+				n5,
+				n6:
+			default:
+				tmpArr = append(tmpArr, i)
+			}
+		}
+
+		// log.Println(tmpArr)
+
+		var pair4, pair5 string
+		pair4 = strconv.Itoa(tmpArr[0]) + strconv.Itoa(tmpArr[1])
+		pair5 = strconv.Itoa(tmpArr[2]) + strconv.Itoa(tmpArr[3])
+		pairs = append(pairs, []string{
+			pair1, pair2, v, pair4, pair5,
+		})
+
+		pair4 = strconv.Itoa(tmpArr[0]) + strconv.Itoa(tmpArr[2])
+		pair5 = strconv.Itoa(tmpArr[1]) + strconv.Itoa(tmpArr[3])
+		pairs = append(pairs, []string{
+			pair1, pair2, v, pair4, pair5,
+		})
+
+		pair4 = strconv.Itoa(tmpArr[0]) + strconv.Itoa(tmpArr[3])
+		pair5 = strconv.Itoa(tmpArr[1]) + strconv.Itoa(tmpArr[2])
+		pairs = append(pairs, []string{
+			pair1, pair2, v, pair4, pair5,
+		})
+	}
+
+	// log.Println(pairs)
+	return pairs
+}
+
+func (gg *galleryGorm) getGraph8Content(config [][]string, header []string) []string {
+	headerSet := make(map[string]bool)
+	for _, v := range header {
+		headerSet[v] = true
+	}
+	// log.Println(config, len(config))
+	res := make([]string, 0, len(config))
+	var lastHit int
+	for i, v := range config {
+		var empty bool
+		for _, val := range v {
+			empty = true
+			if headerSet[val] {
+				empty = false
+				res = append(res, strconv.Itoa(i-lastHit))
+				lastHit = i
+				break
+			}
+		}
+		if empty {
+			res = append(res, "")
+		}
+	}
+	// log.Println("res", len(res))
+	// log.Println(len(append(header, res...)))
+	return append(header, res...)
+}
+
 // first will query using the provided gorm.DB and it will
 // get the first item returned and place it into dst. If
 // nothing is found in the query, it will return ErrNotFound
@@ -636,4 +799,21 @@ func first(db *gorm.DB, dst interface{}) error {
 		return ErrNotFound
 	}
 	return err
+}
+
+func transpose(matrix [][]string) [][]string {
+	n, m := len(matrix), len(matrix[0])
+	t := make([][]string, m)
+	for i := range t {
+		t[i] = make([]string, n)
+		for j := range t[i] {
+			t[i][j] = "hh"
+		}
+	}
+	for i, row := range matrix {
+		for j, v := range row {
+			t[j][i] = v
+		}
+	}
+	return t
 }
