@@ -707,8 +707,10 @@ func (gg *galleryGorm) getGraph8Headers(a int) [][]string {
 	// log.Println(pair1, pair2)
 
 	var tmpArr []int
-	for i := n3 + 1; i <= 9; i++ {
-		if i != n4 {
+	for i := 0; i <= 9; i++ {
+		switch i {
+		case n1, n2, n3, n4:
+		default:
 			tmpArr = append(tmpArr, i)
 		}
 	}
