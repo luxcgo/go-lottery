@@ -637,10 +637,18 @@ func (gg *galleryGorm) GetGraph7(lotteryType int, permutationKey int) (Graph3, e
 }
 
 const (
-	offset = 22000
+	plsOffset    = 22000
+	threedOffset = 2022000
 )
 
 func (gg *galleryGorm) GetGraph8(lotteryType int, fourNumber int) (Graph8, error) {
+	var offset int
+	switch lotteryType {
+	case 1:
+		offset = plsOffset
+	case 2:
+		offset = threedOffset
+	}
 	log.Println("fournm", fourNumber)
 	var res [][]string
 	srcData, _ := gg.GetAllPs(lotteryType)

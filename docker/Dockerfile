@@ -10,7 +10,7 @@ ARG WORK=/build
 WORKDIR $WORK
 
 ADD . .
-RUN go env -w GOPROXY=https://goproxy.io,direct
+RUN go env -w GOPROXY=https://goproxy.cn,direct
 RUN go mod download
 RUN go build -o lottery
 
