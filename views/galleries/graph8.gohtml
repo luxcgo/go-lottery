@@ -1,7 +1,7 @@
 {{define "yield"}}
 <div class="row">
   <div class="col-md-12">
-    <table class="table table-hover" id="table_id">
+    <table class="table table-hover table-bordered" id="table_id">
       <tbody>
         {{range .}}
         <tr>
@@ -26,18 +26,28 @@ $(document).ready(function(){
 <style>
 tbody tr:nth-child(1){
   background-color: #CCCC33;
+  position: sticky;
+  top: 55px;
 }
 tbody tr:nth-child(2){
   background-color: #FF9966;
+  position: sticky;
+  top: 95px;
 }
 tbody tr:nth-child(3){
   background-color: #FF9966;
+  position: sticky;
+  top: 135px;
 }
 tbody tr:nth-child(4){
   background-color: #CCCCFF;
+  position: sticky;
+  top: 175px;
 }
 tbody tr:nth-child(5){
   background-color: #CCCCFF;
+  position: sticky;
+  top: 215px;
 }
 tbody td:nth-child(2) {
   background-color: #EDBB99;
