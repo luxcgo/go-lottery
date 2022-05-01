@@ -20,6 +20,17 @@ $(document).ready(function(){
     if (sd == "") {
       $(this).css('background-color','#ffffff');
     } 
+    var number = parseInt(sd, 10); 
+    if (number >= 10000 && number <20000) {
+      $(this).text(number-10000);
+      $(this).css('background-color','#CCCC33');
+    } else if (number >= 20000 && number < 30000) {
+      $(this).text(number-20000);
+      $(this).css('background-color','#FF9966');
+    } else if (number >= 30000 && number < 40000) {
+      $(this).text(number-30000);
+      $(this).css('background-color','#CCCCFF');
+    }
   });
 });
 </script>

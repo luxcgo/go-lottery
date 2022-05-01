@@ -772,8 +772,10 @@ func (gg *galleryGorm) getGraph8Headers(a int) [][]string {
 
 func (gg *galleryGorm) getGraph8Content(config [][]string, header []string) []string {
 	headerSet := make(map[string]bool)
-	for _, v := range header {
+	headerIndex := make(map[string]int)
+	for i, v := range header {
 		headerSet[v] = true
+		headerIndex[v] = i
 	}
 	// log.Println(config, len(config))
 	res := make([]string, 0, len(config))
@@ -784,7 +786,15 @@ func (gg *galleryGorm) getGraph8Content(config [][]string, header []string) []st
 			empty = true
 			if headerSet[val] {
 				empty = false
-				res = append(res, strconv.Itoa(i-lastHit))
+				freq := i - lastHit
+				if headerIndex[val] == 0 || headerIndex[val] == 1 {
+					freq += 10000
+				} else if headerIndex[val] == 2 {
+					freq += 20000
+				} else if headerIndex[val] == 3 || headerIndex[val] == 4 {
+					freq += 30000
+				}
+				res = append(res, strconv.Itoa(freq))
 				lastHit = i
 				break
 			}
