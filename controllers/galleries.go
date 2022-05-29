@@ -57,6 +57,7 @@ type QueryForm struct {
 	LotteryType    int `schema:"lotteryType"`
 	GraphType      int `schema:"graphType"`
 	FourNumber     int `schema:"fourNumber"`
+	Offset         int `schema:"offset"`
 }
 
 func NewGalleries(gs models.GalleryService,
@@ -206,7 +207,7 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 		vd.Yield = res.Arr
 		g.Graph8View.Render(w, r, vd)
 	case 9:
-		res, _ := g.gs.GetGraph9(form.LotteryType, form.FourNumber)
+		res, _ := g.gs.GetGraph9(form.LotteryType, form.FourNumber, form.Offset)
 		var vd views.Data
 		vd.Yield = res.Arr
 		g.Graph9View.Render(w, r, vd)

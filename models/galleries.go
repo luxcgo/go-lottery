@@ -242,7 +242,7 @@ type GalleryDB interface {
 	GetGraph6(lotteryType int, permutationKey int) (Graph3, error)
 	GetGraph7(lotteryType int, permutationKey int) (Graph3, error)
 	GetGraph8(lotteryType int, fourNumber int) (Graph8, error)
-	GetGraph9(lotteryType int, oneNumber int) (Graph9, error)
+	GetGraph9(lotteryType int, oneNumber int, offset int) (Graph9, error)
 }
 
 type galleryGorm struct {
@@ -813,13 +813,16 @@ func (gg *galleryGorm) getGraph8Content(config [][]string, header []string) []st
 	// log.Println(len(append(header, res...)))
 	return append(header, res...)
 }
-func (gg *galleryGorm) GetGraph9(lotteryType int, oneNumber int) (Graph9, error) {
+func (gg *galleryGorm) GetGraph9(lotteryType int, oneNumber int, offsetInput int) (Graph9, error) {
 	var offset int
 	switch lotteryType {
 	case 1:
 		offset = plsOffset
 	case 2:
 		offset = threedOffset
+	}
+	if offsetInput != 0 {
+		offset = offsetInput
 	}
 	log.Println("onenm", oneNumber)
 	var res [][]string
