@@ -1,0 +1,88 @@
+{{define "yield"}}
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-hover table-bordered" id="table_id">
+      <tbody>
+        {{range .}}
+        <tr>
+          {{range .}}<td class="hide">{{.}}</td>{{end}}
+        </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#table_id td.hide').each(function(){
+    var sd = $(this).text()
+    if (sd == "") {
+      $(this).css('background-color','#ffffff');
+    } 
+    var number = parseInt(sd, 10); 
+    if (number >= 100000 && number <= 100019) {
+      {{/* $(this).text(""); */}}
+      $(this).text(number-100000);
+    } else if (number >= 100020 && number <= 100029) {
+      $(this).text(number-100000);
+      $(this).css('background-color','#CCCCFF');
+    } else if (number >= 100030 && number <= 100039) {
+      $(this).text(number-100000);
+      $(this).css('background-color','#9FE2BF');
+    } else if (number >= 100040 && number <= 100089) {
+      $(this).text(number-100000);
+      $(this).css('background-color','#FFBF00');
+    } else if (number >= 100090) {
+      $(this).text(number-100000);
+      $(this).css('background-color','#DE3163');
+    }
+  });
+});
+</script>
+<style>
+tbody tr:nth-child(1){
+  background-color: #CCCC33;
+  position: sticky;
+  top: 55px;
+}
+tbody tr:nth-child(2){
+  background-color: #FF9966;
+  position: sticky;
+  top: 95px;
+}
+tbody tr:nth-child(3){
+  background-color: #CCCCFF;
+  position: sticky;
+  top: 135px;
+}
+tbody tr:nth-child(4){
+  background-color: #CCCCFF;
+  position: sticky;
+  top: 175px;
+}
+tbody tr:nth-child(5){
+  background-color: #CCCCFF;
+  position: sticky;
+  top: 215px;
+}
+tbody tr:nth-child(6){
+  background-color: #CCCCFF;
+  position: sticky;
+  top: 255px;
+}
+tbody tr:nth-child(7){
+  background-color: #CCCCFF;
+  position: sticky;
+  top: 295px;
+}
+tbody td:nth-child(2) {
+  background-color: #EDBB99;
+}
+tbody td:nth-child(3) {
+  background-color: #F1948A;
+}
+</style>
+
+{{end}}
+

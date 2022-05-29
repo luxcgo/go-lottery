@@ -195,6 +195,9 @@ type Graph3 struct {
 type Graph8 struct {
 	Arr [][]string
 }
+type Graph9 struct {
+	Arr [][]string
+}
 
 type Graph5 struct {
 	Date  string
@@ -239,6 +242,7 @@ type GalleryDB interface {
 	GetGraph6(lotteryType int, permutationKey int) (Graph3, error)
 	GetGraph7(lotteryType int, permutationKey int) (Graph3, error)
 	GetGraph8(lotteryType int, fourNumber int) (Graph8, error)
+	GetGraph9(lotteryType int, oneNumber int) (Graph9, error)
 }
 
 type galleryGorm struct {
@@ -808,6 +812,125 @@ func (gg *galleryGorm) getGraph8Content(config [][]string, header []string) []st
 	// log.Println("res", len(res))
 	// log.Println(len(append(header, res...)))
 	return append(header, res...)
+}
+func (gg *galleryGorm) GetGraph9(lotteryType int, oneNumber int) (Graph9, error) {
+	var offset int
+	switch lotteryType {
+	case 1:
+		offset = plsOffset
+	case 2:
+		offset = threedOffset
+	}
+	log.Println("onenm", oneNumber)
+	var res [][]string
+	srcData, _ := gg.GetAllPs(lotteryType)
+	var dateArr, noArr, numArr []string
+	var config [][]int
+	// Date  string
+	// No    int
+	// Index int
+	// Num1  int
+	// Num2  int
+	// Num3  int
+	for _, v := range srcData {
+		if v.No < offset {
+			continue
+		}
+		dateArr = append(dateArr, v.Date)
+		noArr = append(noArr, strconv.Itoa(v.No))
+		numArr = append(numArr, strconv.Itoa(v.Num1)+strconv.Itoa(v.Num2)+strconv.Itoa(v.Num3))
+		tmp := []int{v.Num1, v.Num2, v.Num3}
+		sort.Ints(tmp)
+		config = append(config, tmp)
+	}
+
+	emptyFields := []string{"", "", "", "", "", "", ""}
+
+	res = append(res, append(emptyFields, dateArr...))
+	res = append(res, append(emptyFields, noArr...))
+	res = append(res, append(emptyFields, numArr...))
+
+	headers := gg.getGraph9Headers(oneNumber)
+	log.Println(len(headers))
+	for i, v := range headers {
+		res = append(res, gg.getGraph9Content(i, config, v, oneNumber))
+		// log.Println(len(res[i+3]))
+	}
+
+	res = transpose(res)
+
+	return Graph9{res}, nil
+}
+
+func (gg *galleryGorm) getGraph9Headers(a int) [][]int {
+	var slice []int
+	for i := 0; i < 10; i++ {
+		if i != a {
+			slice = append(slice, i)
+		}
+	}
+	res := subsets2(slice)
+	return res
+}
+
+func subsets2(nums []int) [][]int {
+	sorted := append([]int{}, nums...)
+	sort.Ints(sorted)
+	res := new([][]int)
+	dfs2(sorted, 0, []int{}, res)
+	log.Println(len(*res))
+	return *res
+}
+
+func dfs2(nums []int, index int, subset []int, res *[][]int) {
+	if len(subset) == 5 {
+		*res = append(*res, append([]int{}, subset...))
+	}
+	for i := index; i < len(nums); i++ {
+		// dfs2(nums, i+1, append(subset, nums[i]), res)
+
+		subset = append(subset, nums[i])
+		dfs2(nums, i+1, subset, res)
+		subset = subset[:len(subset)-1]
+	}
+}
+
+func (gg *galleryGorm) getGraph9Content(idx int, config [][]int, header []int, oneNumber int) []string {
+	headerSet := make(map[int]bool)
+	headerSet[oneNumber] = true
+	for _, v := range header {
+		headerSet[v] = true
+	}
+	// log.Println(config, len(config))
+	res := make([]string, 0, len(config))
+	var lastHit int
+	for i, v := range config {
+		if v[0] != oneNumber && v[1] != oneNumber && v[2] != oneNumber {
+			res = append(res, "")
+			continue
+		}
+		if v[0] == v[1] || v[1] == v[2] || v[0] == v[2] {
+			res = append(res, "")
+			continue
+		}
+
+		if headerSet[v[0]] && headerSet[v[1]] && headerSet[v[2]] {
+			freq := i - lastHit
+			res = append(res, strconv.Itoa(freq+100000))
+			lastHit = i
+		} else {
+			res = append(res, "")
+			continue
+		}
+	}
+	// log.Println("res", len(res))
+	headStr := []string{strconv.Itoa(idx), strconv.Itoa(oneNumber)}
+	for _, v := range header {
+		headStr = append(headStr, strconv.Itoa(v))
+	}
+	// log.Println(len(append(headStr, res...)))
+
+	return append(headStr, res...)
 }
 
 // first will query using the provided gorm.DB and it will

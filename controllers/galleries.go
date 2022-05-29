@@ -43,6 +43,7 @@ type Galleries struct {
 	Graph3View *views.View
 	Graph5View *views.View
 	Graph8View *views.View
+	Graph9View *views.View
 	gs         models.GalleryService
 	r          *mux.Router
 }
@@ -66,6 +67,7 @@ func NewGalleries(gs models.GalleryService,
 		Graph3View: views.NewView("bootstrap", "galleries/graph3"),
 		Graph5View: views.NewView("bootstrap", "galleries/graph5"),
 		Graph8View: views.NewView("bootstrap", "galleries/graph8"),
+		Graph9View: views.NewView("bootstrap", "galleries/graph9"),
 		gs:         gs,
 		r:          r,
 	}
@@ -203,6 +205,11 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 		var vd views.Data
 		vd.Yield = res.Arr
 		g.Graph8View.Render(w, r, vd)
+	case 9:
+		res, _ := g.gs.GetGraph9(form.LotteryType, form.FourNumber)
+		var vd views.Data
+		vd.Yield = res.Arr
+		g.Graph9View.Render(w, r, vd)
 	}
 
 	g.IndexView.Render(w, r, vd)
