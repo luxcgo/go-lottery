@@ -211,6 +211,11 @@ func (g *Galleries) Create(w http.ResponseWriter, r *http.Request) {
 		var vd views.Data
 		vd.Yield = res.Arr
 		g.Graph9View.Render(w, r, vd)
+	case 10:
+		res, _ := g.gs.GetGraph10(form.LotteryType, form.FourNumber)
+		var vd views.Data
+		vd.Yield = res.Arr
+		g.Graph8View.Render(w, r, vd)
 	}
 
 	g.IndexView.Render(w, r, vd)

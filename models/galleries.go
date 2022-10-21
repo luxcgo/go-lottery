@@ -243,6 +243,7 @@ type GalleryDB interface {
 	GetGraph7(lotteryType int, permutationKey int) (Graph3, error)
 	GetGraph8(lotteryType int, fourNumber int) (Graph8, error)
 	GetGraph9(lotteryType int, oneNumber int, offset int) (Graph9, error)
+	GetGraph10(lotteryType int, fourNumber int) (Graph8, error)
 }
 
 type galleryGorm struct {
@@ -934,6 +935,66 @@ func (gg *galleryGorm) getGraph9Content(idx int, config [][]int, header []int, o
 	// log.Println(len(append(headStr, res...)))
 
 	return append(headStr, res...)
+}
+
+func (gg *galleryGorm) GetGraph10(lotteryType int, fourNumber int) (Graph8, error) {
+	var offset int
+	switch lotteryType {
+	case 1:
+		offset = plsOffset
+	case 2:
+		offset = threedOffset
+	}
+	// log.Println("fournm", fourNumber)
+	var res [][]string
+	srcData, _ := gg.GetAllPs(lotteryType)
+	var dateArr, noArr, numArr []string
+	var config [][]string
+	// Date  string
+	// No    int
+	// Index int
+	// Num1  int
+	// Num2  int
+	// Num3  int
+	for _, v := range srcData {
+		if v.No < offset {
+			continue
+		}
+		dateArr = append(dateArr, v.Date)
+		noArr = append(noArr, strconv.Itoa(v.No))
+		numArr = append(numArr, strconv.Itoa(v.Num1)+strconv.Itoa(v.Num2)+strconv.Itoa(v.Num3))
+		tmp := []int{v.Num1, v.Num2, v.Num3}
+		sort.Ints(tmp)
+		config = append(config, []string{
+			strconv.Itoa(tmp[0]) + strconv.Itoa(tmp[1]),
+			strconv.Itoa(tmp[0]) + strconv.Itoa(tmp[2]),
+			strconv.Itoa(tmp[1]) + strconv.Itoa(tmp[2]),
+		})
+	}
+
+	emptyFields := []string{"", "", "", "", ""}
+
+	res = append(res, append(emptyFields, dateArr...))
+	res = append(res, append(emptyFields, noArr...))
+	res = append(res, append(emptyFields, numArr...))
+
+	headers := gg.getGraph8Headers(fourNumber)
+	for _, v := range headers {
+		contentWithSpace := gg.getGraph8Content(config, v)
+		contentWithoutSpace := make([]string, len(contentWithSpace))
+		i := 0
+		for _, cStr := range contentWithSpace {
+			if cStr != "" {
+				contentWithoutSpace[i] = cStr
+				i++
+			}
+		}
+		res = append(res, contentWithoutSpace)
+	}
+
+	res = transpose(res)
+
+	return Graph8{res}, nil
 }
 
 // first will query using the provided gorm.DB and it will
